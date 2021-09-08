@@ -20,7 +20,7 @@
 * Clone the repository
 ```txt
 git clone https://github.com/sandkum5/terraform_intersight_os_install.git
-cd os_install
+cd terraform_intersight_os_install/os_install
 ```
 
 * Copy the SecretKye.txt file in the hx-edge directory. 
