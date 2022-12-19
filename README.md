@@ -23,7 +23,7 @@ git clone https://github.com/sandkum5/terraform_intersight_os_install.git
 cd terraform_intersight_os_install/os_install
 ```
 
-* Copy the SecretKye.txt file in the hx-edge directory. 
+* Copy the SecretKye.txt file in the os_install directory. 
 * Add the API Key to the api_key variable and the rest of the environment variables in the `<env>`.tfvars template files. Filename can be re-named as `<new-filename>`.tfvars.
 
 * Initialize Terraform. 
