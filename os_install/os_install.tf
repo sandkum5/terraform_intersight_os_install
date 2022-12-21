@@ -11,11 +11,11 @@ resource "intersight_os_install" "os_install" {
   }
   image {
     object_type = "softwarerepository.OperatingSystemFile"
-    moid        = intersight_softwarerepository_operating_system_file.os_repo.moid
+    moid        = data.intersight_softwarerepository_operating_system_file.os_repo.results[0].moid
   }
   osdu_image {
     object_type = "firmware.ServerConfigurationUtilityDistributable"
-    moid        = intersight_firmware_server_configuration_utility_distributable.scu_repo.moid
+    moid        = data.intersight_firmware_server_configuration_utility_distributable.scu_repo.results[0].moid
   }
   configuration_file {
     object_type = "os.ConfigurationFile"
