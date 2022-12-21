@@ -1,20 +1,25 @@
 resource "intersight_os_install" "os_install" {
-  name = "InstallTemplatee165"
+  name = "InstallTemplate"
+  description    = "Install ESXi 7.0"
+  organization {
+    object_type = "organization.Organization"
+    moid = data.intersight_organization_organization.org.results[0].moid
+  }
   server {
-    object_type = "compute.RackUnit"
-    selector    = var.os_install_server_selector
+    object_type = data.intersight_compute_physical_summary.server.results[0].source_object_type
+    moid        = data.intersight_compute_physical_summary.server.results[0].moid
   }
   image {
     object_type = "softwarerepository.OperatingSystemFile"
-    moid        = intersight_softwarerepository_operating_system_file.esxi_custom_iso.moid
+    moid        = intersight_softwarerepository_operating_system_file.os_repo.moid
   }
   osdu_image {
-    moid        = intersight_firmware_server_configuration_utility_distributable.scu_ucsc.moid
     object_type = "firmware.ServerConfigurationUtilityDistributable"
+    moid        = intersight_firmware_server_configuration_utility_distributable.scu_repo.moid
   }
   configuration_file {
     object_type = "os.ConfigurationFile"
-    selector    = var.os_install_configuration_file_selector
+    moid        = data.intersight_os_configuration_file.os_config.results[0].moid
   }
   answers {
     hostname       = var.os_hostname
@@ -35,18 +40,14 @@ resource "intersight_os_install" "os_install" {
     root_password            = var.os_root_password
     nr_source                = var.os_answers_nr_source
   }
-  description    = "Install ESXi 6.7 U3"
   install_method = "vMedia"
-  organization {
-    object_type = "organization.Organization"
-    # moid        = var.organization
-  }
   install_target {
-    additional_properties = jsonencode({
-      Id                      = "0"
-      Name                    = "RAID0_1"
-      StorageControllerSlotId = "MRAID"
-    })
     object_type = "os.VirtualDrive"
+    additional_properties = jsonencode({
+      ObjectType              = "os.VirtualDrive"
+      Id                      = "0"
+      Name                    = "vd0"
+      StorageControllerSlotId = "1"
+    })
   }
 }
