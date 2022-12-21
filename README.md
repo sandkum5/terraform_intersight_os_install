@@ -3,13 +3,21 @@
 
 * This module installs an OS on a UCS Server using terraform intersight provider
 
+## Dirs
+- create_repos 
+  - To create an Operating System(OS) and Server Configuration Utility(SCU) repos
+ 
+- os_install
+  - To Trigger Operating System(OS) Install Workflow
+  
 ## Below is a list of policies created as part of the process: 
 - Operating Systems Image repo
 - Server Configuration Utilities repo
 - Install Operating system 
 
 ## Requirements
-* Terraform v0.14.2 
+* Terraform v1.3.6
+* Intersight Provider version 1.0.34
 * git 
 
 ## Usage
@@ -20,11 +28,16 @@
 * Clone the repository
 ```txt
 git clone https://github.com/sandkum5/terraform_intersight_os_install.git
+
+To create OS and SCU Repos:
+cd terraform_intersight_os_install/create_repos
+
+To Trigger OS installation Workflow:
 cd terraform_intersight_os_install/os_install
 ```
 
-* Copy the SecretKye.txt file in the os_install directory. 
-* Add the API Key to the api_key variable and the rest of the environment variables in the `<env>`.tfvars template files. Filename can be re-named as `<new-filename>`.tfvars.
+* Copy the SecretKey.txt file in the os_install directory. 
+* Add the API Key to the ApiKey.txt file and the rest of the environment variables in the `<env>`.tfvars template files. Filename can be re-named as `<new-filename>`.tfvars.
 
 * Initialize Terraform. 
   Note: This step automatically downloads intersight provider plugin. 
