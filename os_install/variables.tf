@@ -11,6 +11,13 @@ variable "os_config_file" {
   type = string
 }
 
+variable "os_repo_name" {
+  type = string
+}
+
+variable "scu_repo_name" {
+  type = string
+}
 # os_install
 # variable "os_install_server_selector" {
 #   type        = string
