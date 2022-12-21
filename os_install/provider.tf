@@ -1,15 +1,15 @@
 terraform {
-  required_version = ">= 0.13.5"
+  required_version = ">= 1.3.6"
   required_providers {
     intersight = {
       source = "CiscoDevNet/intersight"
-      # version = "1.0.0"
+      # version = "1.0.34"
     }
   }
 }
 
 provider "intersight" {
-  apikey    = var.api_key
-  secretkey = var.secret_key
-  endpoint  = var.endpoint
+  apikey    = file("./ApiKey.txt")
+  secretkey = "./SecretKey.txt"
+  endpoint  = "https://intersight.com"
 }
