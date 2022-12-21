@@ -4,6 +4,9 @@ org_name = "default"
 server_serial = "FCxxxxxx"
 os_config_file = "ESXi7.0ConfigFile"
 
+os_repo_name = "os_repo_esxi"
+scu_repo_name = "scu_6.1.3c"
+
 # os_install
 # Configuration Source : Cisco
 # Configuration File :
