@@ -1,21 +1,8 @@
 # Intersight Access API Key
 # Common
-# Tags
-Tags = [{
-    Key   = "Location"
-    Value = "SJ"
-  },
-  {
-    Key   = "ENV"
-    Value = "PROD"
-  }]
-
+org_name = "default"
 server_serial = "FCxxxxxx"
 os_config_file = "ESXi7.0ConfigFile"
-object_type = "https" # Options: https, cifs, nfs
-enable_https = true
-enable_cifs = false
-enable_nfs = false
 
 # os_install
 # Configuration Source : Cisco
