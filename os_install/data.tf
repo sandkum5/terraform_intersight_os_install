@@ -1,4 +1,4 @@
-data "intersight_organization_organization" "org_data" {
+data "intersight_organization_organization" "org" {
   name = var.org_name
 }
 
