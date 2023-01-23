@@ -43,11 +43,6 @@ variable "repo_source_os_iso_path" {
 }
 
 # Common attributes between OS/SCU Resources:
-variable "repo_source_object_type" {
-  type        = string
-  description = "Repo Type"
-}
-
 variable "repo_source_cifs_mount_options" {
   type        = string
   description = "For CIFS, leave the field blank or enter one or more comma seperated options from the following. For Example, \" \" , \" soft \" , \" soft , nounix \" . * soft. * nounix. * noserviceino. * guest. * USERNAME=VALUE. * PASSWORD=VALUE. * sec=VALUE (VALUE could be None, Ntlm, Ntlmi, Ntlmssp, Ntlmsspi, Ntlmv2, Ntlmv2i)."
