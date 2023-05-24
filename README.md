@@ -72,6 +72,14 @@ terraform destroy
 To get more details on Intersight, terraform provider for intersight, how to create an intersight account, how to Generate API keys, refer:
 https://www.cisco.com/c/en/us/products/collateral/servers-unified-computing/ucs-c-series-rack-servers/2201041-intersight-terrafirma-wp.html
 
+## Note
+- As OS Install is transactional workflow, the target resource can't be modified/deleted. We may get the following warning:
+  `Warning: OsInstall does not allow delete functionality`
+- When OS installation fails, we can check Intersight GUI under requests to identify the step where it failed.
+- To retrigger the installation, first delete the last instance of OS_Install resource for the same server.
+  `terraform state list` - to list resources
+  `terraform state rm intersight_os_install.os_install` - to remove intersight_os_install.os_install resource
+
 
 ### Additional intersight modules:
 https://github.com/CiscoDevNet/intersight-terraform-modules
