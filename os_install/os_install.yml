@@ -2,7 +2,7 @@
 data:
   name                        : "TF_OS_Install"
   description                 : "OS Installation Workflow using Terraform"
-  os_install_target           : "mraid_vd"  # values: mraid_vd, fc, iscsi
+  os_install_target           : "mraid_vd"  # Options: mraid_vd, fc, iscsi
   os_install:
     mraid_vd:
       ObjectType              : "os.VirtualDrive"
