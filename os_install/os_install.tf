@@ -56,20 +56,6 @@ resource "intersight_os_install" "os_install" {
       VnicMac                 = local.VnicMac
       # LunId parameter is common between FC and iSCSI Targets
       LunId = local.LunId
-
-      # # MRAID VD Target
-      # ObjectType              = local.os_install_target == "mraid_vd" ? local.target_config.ObjectType : null
-      # Id                      = local.os_install_target == "mraid_vd" ? local.target_config.Id : null
-      # Name                    = local.os_install_target == "mraid_vd" ? local.target_config.Name : null
-      # StorageControllerSlotId = local.os_install_target == "mraid_vd" ? local.target_config.StorageControllerSlotId : null
-      # # FC Target
-      # InitiatorWwpn = local.os_install_target == "fc" ? local.target_config.InitiatorWwpn : null
-      # TargetWwpn    = local.os_install_target == "fc" ? local.target_config.TargetWwpn : null
-      # # iSCSI Target
-      # TargetIqn = local.os_install_target == "iscsi" ? local.target_config.TargetIqn : null
-      # VnicMac   = local.os_install_target == "iscsi" ? local.target_config.VnicMac : null
-      # LunId parameter is common between FC and iSCSI Targets, Hence local var is being used
-      # LunId = local.LunId
     })
   }
 }
