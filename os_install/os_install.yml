@@ -1,0 +1,44 @@
+---
+data:
+  name                        : "TF_OS_Install"
+  description                 : "OS Installation Workflow using Terraform"
+  os_install_target           : "mraid_vd"  # values: mraid_vd, fc, iscsi
+  os_install:
+    mraid_vd:
+      ObjectType              : "os.VirtualDrive"
+      Id                      : "0"
+      Name                    : "vd0"  # Configure > Policies > Storage > .. > Virtual Drive Name
+      StorageControllerSlotId : "1"    # Operate > Servers > server-X > Inventory > Storage Controllers > ControllerID
+    fc:
+      ObjectType              : "os.FibreChannelTarget"
+      InitiatorWwpn           : "20:00:00:00:01:00:00:01"
+      LunId                   : 10
+      TargetWwpn              : "20:00:00:00:01:00:00:02"
+    iscsi:
+      ObjectType              : "os.IscsiTarget"
+      LunId                   : 10
+      TargetIqn               : "iqn.2023-05.com.demo:12312341234"
+      VnicMac                 : "20:00:00:00:00:01"
+
+  # Common
+  org_name                    : "default"
+  server_serial               : "xxxxxx"
+
+  # Cisco provided OS Config File
+  os_config_file              : "ESXi7.0ConfigFile"
+
+  # Repo Names
+  os_repo_name                : "VMware-ESXi-7.0-Custom-Cisco-testImage"
+  scu_repo_name               : "SCU6.1.3c"
+
+  # os_install
+  os_hostname                 : "tf-test-node"
+  os_ip_config_type           : "static"
+
+  ## OS IP Info
+  os_ipv4_addr                : "10.0.0.10"
+  os_ipv4_netmask             : "255.255.255.0"
+  os_ipv4_gateway             : "10.0.0.1"
+  os_ipv4_dns_ip              : "8.8.8.8"
+  os_root_password            : "password12345"
+  os_answers_nr_source        : "Template"

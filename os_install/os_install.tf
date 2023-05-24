@@ -1,9 +1,9 @@
 resource "intersight_os_install" "os_install" {
-  name = "InstallTemplate"
-  description    = "Install ESXi 7.0"
+  name        = local.name
+  description = local.description
   organization {
     object_type = "organization.Organization"
-    moid = data.intersight_organization_organization.org.results[0].moid
+    moid        = data.intersight_organization_organization.org.results[0].moid
   }
   server {
     object_type = data.intersight_compute_physical_summary.server.results[0].source_object_type
@@ -22,32 +22,40 @@ resource "intersight_os_install" "os_install" {
     moid        = data.intersight_os_configuration_file.os_config.results[0].moid
   }
   answers {
-    hostname       = var.os_hostname
-    ip_config_type = var.os_ip_config_type
-    # IpV4Config = {
+    hostname       = local.os_hostname
+    ip_config_type = local.os_ip_config_type
     ip_configuration {
       additional_properties = jsonencode({
         IpV4Config = {
-          IpAddress = var.os_ipv4_addr
-          Netmask   = var.os_ipv4_netmask
-          Gateway   = var.os_ipv4_gateway
+          IpAddress = local.os_ipv4_addr
+          Netmask   = local.os_ipv4_netmask
+          Gateway   = local.os_ipv4_gateway
         }
       })
       object_type = "os.Ipv4Configuration"
     }
     is_root_password_crypted = false
-    nameserver               = var.os_ipv4_dns_ip
-    root_password            = var.os_root_password
-    nr_source                = var.os_answers_nr_source
+    nameserver               = local.os_ipv4_dns_ip
+    root_password            = local.os_root_password
+    nr_source                = local.os_answers_nr_source
   }
   install_method = "vMedia"
   install_target {
-    object_type = "os.VirtualDrive"
+    object_type = local.target_config.ObjectType
     additional_properties = jsonencode({
-      ObjectType              = "os.VirtualDrive"
-      Id                      = "0"
-      Name                    = "vd0"
-      StorageControllerSlotId = "1"
+      # MRAID VD Target
+      ObjectType              = local.os_install_target == "mraid_vd" ? local.target_config.ObjectType : null
+      Id                      = local.os_install_target == "mraid_vd" ? local.target_config.Id : null
+      Name                    = local.os_install_target == "mraid_vd" ? local.target_config.Name : null
+      StorageControllerSlotId = local.os_install_target == "mraid_vd" ? local.target_config.StorageControllerSlotId : null
+      # FC Target
+      InitiatorWwpn = local.os_install_target == "fc" ? local.target_config.InitiatorWwpn : null
+      TargetWwpn    = local.os_install_target == "fc" ? local.target_config.TargetWwpn : null
+      # iSCSI Target
+      TargetIqn = local.os_install_target == "iscsi" ? local.target_config.TargetIqn : null
+      VnicMac   = local.os_install_target == "iscsi" ? local.target_config.VnicMac : null
+      # LunId parameter is common between FC and iSCSI Targets, Hence local var is being used
+      LunId = local.LunId
     })
   }
 }
