@@ -49,11 +49,11 @@ resource "intersight_os_install" "os_install" {
       Name                    = local.Name
       StorageControllerSlotId = local.StorageControllerSlotId
       # FC Target
-      InitiatorWwpn           = local.InitiatorWwpn
-      TargetWwpn              = local.TargetWwpn
+      InitiatorWwpn = local.InitiatorWwpn
+      TargetWwpn    = local.TargetWwpn
       # iSCSI Target
-      TargetIqn               = local.TargetIqn
-      VnicMac                 = local.VnicMac
+      TargetIqn = local.TargetIqn
+      VnicMac   = local.VnicMac
       # LunId parameter is common between FC and iSCSI Targets
       LunId = local.LunId
     })

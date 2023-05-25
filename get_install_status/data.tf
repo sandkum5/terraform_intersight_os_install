@@ -1,8 +1,8 @@
 data "terraform_remote_state" "os_install" {
-    backend = "local"
-    config = {
-        path = "${path.module}/../os_install/terraform.tfstate"
-    }
+  backend = "local"
+  config = {
+    path = "${path.module}/../os_install/terraform.tfstate"
+  }
 }
 
 data "intersight_os_install" "response" {

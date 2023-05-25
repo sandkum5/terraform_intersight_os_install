@@ -1,0 +1,32 @@
+---
+data:
+  # create_os_repo
+  os_repo:
+    type              : "https" # Options: https, cifs, nfs
+    name              : "os-repo"
+    description       : "ESXi 7.0 Cisco Custom ISO"
+    nr_version        : "ESXi 7.0"
+    iso_path          : "https://x.x.x.x/FILESERVER/storage/ISOs/VMware-ESXi-7.0.0-16324942-Custom-Cisco-4.1.2a.iso"
+    vendor            : "VMware"
+    cifs_mount_option : ""
+    nfs_mount_option  : ""
+    user              : "root"
+    password          : "password"
+    tags              :
+      - key  : "Env"
+        value: "PROD"
+      - key  : "Location"
+        value: "US"
+
+  # create_scu_repo
+  scu_repo:
+    type              : "https" # Options: https, cifs, nfs
+    name              : "scu-repo"
+    description       : "SCU 6.1.3c for Demo"
+    nr_version        : "6.1.3c"
+    iso_path          : "https://x.x.x.x/share/ucs-cxxx-scu-6.1.3c.iso"
+    supported_models  : ["C-Series", "UCSC-C220-M5L"]
+    cifs_mount_option : ""
+    nfs_mount_option  : ""
+    user              : "root"
+    password          : "password"

@@ -1,17 +1,8 @@
-locals {
-  scu_sources = {
-    https = "softwarerepository.HttpServer",
-    cifs = "softwarerepository.CifsServer",
-    nfs = "softwarerepository.NfsServer"
-  }
-  scu_source_type = lookup(local.scu_sources, var.object_type, "https" )
-}
-
 resource "intersight_firmware_server_configuration_utility_distributable" "scu_repo" {
-  name             = var.scu_name
-  nr_version       = var.scu_nr_version
-  supported_models = var.scu_supported_models
-  description      = var.scu_description
+  name             = local.scu_name
+  nr_version       = local.scu_nr_version
+  supported_models = local.scu_supported_models
+  description      = local.scu_description
   # Uncomment when Organization option is added to Intersight Provider
   # Issue: https://github.com/CiscoDevNet/terraform-provider-intersight/issues/231
   # organization {
@@ -19,33 +10,32 @@ resource "intersight_firmware_server_configuration_utility_distributable" "scu_r
   #   moid = data.intersight_organization_organization.org.results[0].moid
   # }
   dynamic "tags" {
-    for_each = var.Tags
+    for_each = local.scu_tags
     content {
       key   = tags.value.Key
       value = tags.value.Value
     }
   }
   catalog {
-    selector    = "Name eq 'user-catalog' and Organization/Moid eq '${data.intersight_organization_organization.org.results[0].moid}'"
+    moid        = local.catalog_moid
     object_type = "softwarerepository.Catalog"
+    # selector    = "Name eq 'user-catalog' and Organization/Moid eq '${data.intersight_organization_organization.org.results[0].moid}'"
   }
   nr_source {
-    object_type = local.scu_source_type # var.repo_source_object_type
+    object_type = local.scu_object_type # var.repo_source_object_type
     additional_properties = jsonencode({
       # HTTPS
-      LocationLink = var.repo_source_scu_iso_path
-      Username     = var.repo_source_user
-      Password     = var.repo_source_password
-
+      LocationLink = local.scu_LocationLink
+      Username     = local.scu_Username
+      Password     = local.scu_Password
       # CIFS
-      # FileLocation = var.repo_source_scu_iso_path
-      # MountOption  = var.repo_source_cifs_mount_options
-      # Username     = var.repo_source_user
-      # Password     = var.repo_source_password
-
+      FileLocation = local.scu_FileLocation
+      MountOption  = local.scu_cifs_MountOption
+      # Username     = "" # Common with https
+      # Password     = "" # Common with https
       # NFS
-      # FileLocation = var.repo_source_scu_iso_path
-      # MountOptions = var.repo_source_nfs_mount_options
+      # FileLocation = "" # Common with CIFS
+      MountOptions = local.scu_nfs_MountOptions
     })
   }
 }
